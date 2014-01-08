@@ -62,6 +62,8 @@ var phonegapdesktop = {};
 phonegapdesktop.internal = {
 	debugdata : {},
 
+	isForceExceptionNext : false,
+
 	initialiseData : function() {
 		// Load the default config file
 		this.parseConfigFile('debugdata.json');
@@ -153,9 +155,14 @@ phonegapdesktop.internal = {
 		helpHTML += '<li>B - Back button pressed</li><li>I - Battery Critical</li><li>L - Battery Low</li>';
 		helpHTML += '<li>A - Battery status change</li><li>M - Menu button pressed</li><li>S - Search button pressed</li>';
 		helpHTML += '<li>T - Start call button</li><li>E - End call button</li><li>D - Volume Down button</li>';
-		helpHTML += '<li>U - Volume up button</li></ul>';
+		helpHTML += '<li>U - Volume up button</li>';
+		helpHTML += '<li>K - Force an Exception soon</li></ul>';
 
 		switch (keyCode) {
+			case 75:
+				// <k> Next Camera fail
+				phonegapdesktop.isForceExceptionNext = true;
+				break;
 			case 72:
 				// <H>elp
 				phonegapdesktop.utility.timedPopup(10, 10, 77, 78, helpHTML, 3000, "DarkBlue");
@@ -240,6 +247,13 @@ phonegapdesktop.internal = {
 	},
 
 	randomException : function(sectionName) {
+		var _isForceExceptionNext = false;
+		if(true===phonegapdesktop.isForceExceptionNext)
+		{
+			phonegapdesktop.isForceExceptionNext = false;
+			return true;			
+		}
+
 		/*
 		 * A little improvement: check if the provided sectionName exists into debugdata.
 		 * Because in Firefox (sometimes) this this.debugdata[sectionName] is undefined.
