@@ -54,7 +54,7 @@ window.addEventListener('load', function() {
 		var readyEvent = document.createEvent('HTMLEvents');
 		readyEvent.initEvent('deviceready', true, true);
 		document.dispatchEvent(readyEvent);
-	}, phonegapdesktop.internal.getDebugValue("internal", "startupDelay") || 200)
+	}, phonegapdesktop.internal.getDebugValue("internal", "startupDelay") || 200);
 }, false);
 
 // Internal library functions
@@ -87,7 +87,7 @@ phonegapdesktop.internal = {
 		try {
 			jsonReq.send();
 		} catch (err) {
-			phonegapdesktop.utility.timedPopup(10, 10, 80, 20, "PhoneGap Desktop<br/>Unable to load JSON data. Check setup<br/>" + err, 3000, "DarkRed")
+			phonegapdesktop.utility.timedPopup(10, 10, 80, 20, "PhoneGap Desktop<br/>Unable to load JSON data. Check setup<br/>" + err, 3000, "DarkRed");
 		}
 
 		data = jsonReq.responseText;
@@ -121,7 +121,7 @@ phonegapdesktop.internal = {
 
 		if(Object.prototype.toString.call(node[element]) === '[object Array]') {
 			// Pick an element from the array
-			if(node.arraySequence != undefined) {
+			if(node.arraySequence !== undefined) {
 				inSequence = node.arraySequence;
 			} else {
 				inSequence = phonegapdesktop.internal.debugdata.internal.arraySequence;
@@ -321,7 +321,7 @@ phonegapdesktop.internal = {
 	beepPause : function(times) {
 		if(times > 0) {
 			setTimeout(function() {
-				phonegapdesktop.internal.beeper(times)
+				phonegapdesktop.internal.beeper(times);
 			}, 300);
 		}
 	},
@@ -384,20 +384,24 @@ phonegapdesktop.utility = {
 
 	// Copied from http://stackoverflow.com/questions/728360/copying-an-object-in-javascript
 	clone : function(obj) {
+		var copy = null;
+
 		// Handle the 3 simple types, and null or undefined
-		if(null == obj || "object" != typeof obj)
+		if(null === obj || "object" !== typeof obj)
+		{
 			return obj;
+		}
 
 		// Handle Date
 		if( obj instanceof Date) {
-			var copy = new Date();
+			copy = new Date();
 			copy.setTime(obj.getTime());
 			return copy;
 		}
 
 		// Handle Array
 		if( obj instanceof Array) {
-			var copy = [];
+			copy = [];
 			var len = obj.length;
 			for(var i = 0; i < len; ++i) {
 				copy[i] = clone(obj[i]);
@@ -407,10 +411,12 @@ phonegapdesktop.utility = {
 
 		// Handle Object
 		if( obj instanceof Object) {
-			var copy = {};
+			copy = {};
 			for(var attr in obj) {
 				if(obj.hasOwnProperty(attr))
+				{
 					copy[attr] = phonegapdesktop.utility.clone(obj[attr]);
+				}
 			}
 			return copy;
 		}
@@ -1068,7 +1074,7 @@ if(!window.requestFileSystem) {
 				code : FileError.NOT_FOUND_ERR
 			});
 		}
-	}
+	};
 	requestFileSystem(LocalFileSystem.TEMPORARY, 1, function(fs) {
 		resolveLocalFileSystemURI.prototype.tempFS = fs;
 	});
