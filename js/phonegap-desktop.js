@@ -1349,3 +1349,17 @@ navigator.app = {
 		window.close();
 	}
 };
+// Mocks the Status Bar
+StatusBar = {};
+
+// Stubs out functions
+StatusBar.overlaysWebView = function (aVal)
+{
+	return aVal;
+};
+StatusBar.styleDefault = function ()
+{
+
+};
+
+
