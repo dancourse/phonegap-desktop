@@ -1349,6 +1349,15 @@ navigator.app = {
 		window.close();
 	}
 };
+
+//
+// Splash Screen
+navigator.splashscreen = {};
+navigator.splashscreen.hide = function ()
+{
+	
+}
+
 // Mocks the Status Bar
 StatusBar = {};
 
